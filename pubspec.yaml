@@ -23,6 +23,7 @@ dependencies:
   fluttertoast: ^8.2.1
   get_it: ^7.6.0
   injectable: ^2.1.2
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   injectable_generator: ^2.1.6
