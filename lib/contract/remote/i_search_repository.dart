@@ -1,4 +1,9 @@
 // ignore: depend_on_referenced_packages
 import 'package:async/async.dart';
 
-abstract class ISearchRepository {}
+import '../../models/search_result.dart';
+
+abstract class ISearchRepository {
+  Future<Result<SearchResult>> searchGithubRepositories(
+      Map<String,dynamic>? searchParameter);
+}

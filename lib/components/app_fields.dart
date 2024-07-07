@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constants/constant_strings.dart';
+
 class Field extends StatelessWidget {
   const Field({
     super.key,
-    required this.labelText,
-    required this.validator,
     required this.controller,
     this.obscureText = false,
+    this.onSearchTapped,
   });
 
-  final String labelText;
-  final String? Function(dynamic value) validator;
   final bool obscureText;
   final TextEditingController controller;
+  final Function()? onSearchTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -21,26 +21,20 @@ class Field extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-            child:
-                Text(labelText, style: Theme.of(context).textTheme.bodySmall),
-          ),
-          SizedBox(height: 8.h),
-          TextFormField(
-            controller: controller,
-            cursorHeight: 38.h,
-            decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
+      child: TextFormField(
+        controller: controller,
+        cursorHeight: 38.h,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(25.r)),
+          suffixIcon: Padding(
+            padding: EdgeInsets.all(8.spMin),
+            child: ElevatedButton(
+              onPressed: onSearchTapped,
+              child: Text(Constant.titles.search),
             ),
-            obscureText: obscureText,
-            validator: validator,
           ),
-        ],
+        ),
+        obscureText: obscureText,
       ),
     );
   }
