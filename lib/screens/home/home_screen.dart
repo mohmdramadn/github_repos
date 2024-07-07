@@ -36,8 +36,7 @@ class _Body extends StatelessWidget {
             height: 30.spMin,
             fit: BoxFit.fill,
           ),
-          onPressed: ()=>
-            context.read<HomeViewModel>().setIsShowFilters(),
+          onPressed: () => context.read<HomeViewModel>().setIsShowFilters(),
         ),
         title: const Text('GitHub Repo.'),
         actions: [
@@ -84,43 +83,44 @@ class RepoList extends StatelessWidget {
               onSearchTapped: () =>
                   context.read<HomeViewModel>().searchGithubRepos(),
             ),
-          if(isShowFilters) Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.spMin),
-            child: SizedBox(
-              height: 30.h,
-              width: MediaQuery.sizeOf(context).width,
-              child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => InkWell(
-                        splashColor: Colors.transparent,
-                        onTap: () => context
-                            .read<HomeViewModel>()
-                            .setSelectedFilter(filters[index]),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.r),
-                              color: selectedFilter == filters[index]
-                                  ? Colors.blue.shade50
-                                  : Colors.grey),
-                          child: Padding(
-                            padding: EdgeInsets.all(4.spMin),
-                            child: Text(
-                              filters[index],
-                              style: TextStyle(
-                                  fontSize: 16.spMin,
-                                  color: selectedFilter == filters[index]
-                                      ? Colors.blue
-                                      : Colors.white),
+          if (isShowFilters)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.spMin),
+              child: SizedBox(
+                height: 30.h,
+                width: MediaQuery.sizeOf(context).width,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => InkWell(
+                          splashColor: Colors.transparent,
+                          onTap: () => context
+                              .read<HomeViewModel>()
+                              .setSelectedFilter(filters[index]),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.r),
+                                color: selectedFilter == filters[index]
+                                    ? Colors.blue.shade50
+                                    : Colors.grey),
+                            child: Padding(
+                              padding: EdgeInsets.all(4.spMin),
+                              child: Text(
+                                filters[index],
+                                style: TextStyle(
+                                    fontSize: 16.spMin,
+                                    color: selectedFilter == filters[index]
+                                        ? Colors.blue
+                                        : Colors.white),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      SizedBox(width: 4.w),
-                  itemCount: filters.length),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        SizedBox(width: 4.w),
+                    itemCount: filters.length),
+              ),
             ),
-          ),
           SizedBox(height: 16.h),
           isLoading
               ? const CircularProgressIndicator()
@@ -132,116 +132,123 @@ class RepoList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(color: Colors.white),
                   ),
-                  child: ListView.separated(
-                    padding: EdgeInsets.all(16.spMin),
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => Get.toNamed(Routes.repoDetailsRoute,
-                            arguments: {
-                              'ownerName': items[index].owner?.login ?? '',
-                              'repoName': items[index].name
-                            }),
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 8.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ListTile(
-                                leading: Container(
-                                    constraints: BoxConstraints(
-                                        minWidth: 30.w,
-                                        maxWidth: 50.w,
-                                        minHeight: 40.h,
-                                        maxHeight: 40.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      color: Colors.white,
-                                    ),
-                                    child: items[index].owner?.avatarUrl == ''
-                                        ? SvgPicture.asset(
-                                            Constant.assets.user,
-                                            width: 40.spMin,
-                                            height: 40.spMin,
-                                            fit: BoxFit.contain,
-                                          )
-                                        : Image.network(
-                                            items[index].owner!.avatarUrl!,
-                                            width: 40.spMin,
-                                            height: 40.spMin,
-                                            fit: BoxFit.contain)),
-                                title: Container(
-                                  constraints: BoxConstraints(
-                                      minWidth: 60.w,
-                                      maxWidth: 60.w,
-                                      minHeight: 50.h,
-                                      maxHeight: 60.h),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        'Name: ${items[index].name}',
-                                        softWrap: true,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            fontSize: 16.spMin,
-                                            fontWeight: FontWeight.bold),
+                  child: RefreshIndicator(
+                    onRefresh: () =>
+                        context.read<HomeViewModel>().searchGithubRepos(),
+                    child: ListView.separated(
+                      padding: EdgeInsets.all(16.spMin),
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () => Get.toNamed(Routes.repoDetailsRoute,
+                              arguments: {
+                                'ownerName': items[index].owner?.login ?? '',
+                                'repoName': items[index].name
+                              }),
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 8.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ListTile(
+                                  leading: Container(
+                                      constraints: BoxConstraints(
+                                          minWidth: 30.w,
+                                          maxWidth: 50.w,
+                                          minHeight: 40.h,
+                                          maxHeight: 40.h),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        color: Colors.white,
                                       ),
-                                      Text(
-                                        'Owner: ${items[index].owner!.login}',
-                                        softWrap: true,
-                                        maxLines: 3,
-                                        style: TextStyle(
-                                            fontSize: 14.spMin,
-                                            color: Colors.grey[700]),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                trailing: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      color: Colors.blue.shade50),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(4.spMin),
-                                    child: Text(
-                                      '${items[index].createdAt?.year} - ${items[index].createdAt?.month} - ${items[index].createdAt?.day}',
-                                      style: TextStyle(
-                                          fontSize: 12.spMin,
-                                          color: Colors.blue),
+                                      child: items[index].owner?.avatarUrl == ''
+                                          ? SvgPicture.asset(
+                                              Constant.assets.user,
+                                              width: 40.spMin,
+                                              height: 40.spMin,
+                                              fit: BoxFit.contain,
+                                            )
+                                          : Image.network(
+                                              items[index].owner!.avatarUrl!,
+                                              width: 40.spMin,
+                                              height: 40.spMin,
+                                              fit: BoxFit.contain)),
+                                  title: Container(
+                                    constraints: BoxConstraints(
+                                        minWidth: 60.w,
+                                        maxWidth: 60.w,
+                                        minHeight: 50.h,
+                                        maxHeight: 60.h),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Name: ${items[index].name}',
+                                          softWrap: true,
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                              fontSize: 16.spMin,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          'Owner: ${items[index].owner!.login}',
+                                          softWrap: true,
+                                          maxLines: 3,
+                                          style: TextStyle(
+                                              fontSize: 14.spMin,
+                                              color: Colors.grey[700]),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                ),
-                                contentPadding: EdgeInsets.zero,
-                              ),
-                              SizedBox(height: 8.h),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Main Branch: ${items[index].defaultBranch}',
-                                    style: TextStyle(
-                                        fontSize: 14.spMin,
-                                        color: Colors.grey[700]),
+                                  trailing: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        color: Colors.blue.shade50),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4.spMin),
+                                      child: Text(
+                                        '${items[index].createdAt?.year} - ${items[index].createdAt?.month} - ${items[index].createdAt?.day}',
+                                        style: TextStyle(
+                                            fontSize: 12.spMin,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
                                   ),
-                                  SizedBox(width: 8.w),
-                                  Icon(Icons.copy,
-                                      size: 16.spMin, color: Colors.grey[700]),
-                                ],
-                              ),
-                            ],
+                                  contentPadding: EdgeInsets.zero,
+                                ),
+                                SizedBox(height: 8.h),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Main Branch: ${items[index].defaultBranch}',
+                                      style: TextStyle(
+                                          fontSize: 14.spMin,
+                                          color: Colors.grey[700]),
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Icon(Icons.copy,
+                                        size: 16.spMin,
+                                        color: Colors.grey[700]),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      if (index != items.length) {
-                        return const Divider(
-                          indent: 5,
-                          endIndent: 5,
-                          color: Colors.white,
                         );
-                      }
-                      return const SizedBox();
-                    },
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        if (index != items.length) {
+                          return const Divider(
+                            indent: 5,
+                            endIndent: 5,
+                            color: Colors.white,
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
                   ),
                 ),
         ],
