@@ -85,4 +85,4 @@ class Assets{
   String get search => 'assets/svgs/search.svg';
 }
 
-const String kGithubToken = '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';
+const String kGithubToken = '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';
