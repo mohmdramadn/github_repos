@@ -68,9 +68,8 @@ class Fonts{
 
 class Url{
   const Url();
-  final String _baseUrl = 'https://api.pexels.com/v1';
-  String get photosApi => '$_baseUrl/curated?per_page=';
-  String get searchApi => '$_baseUrl/search?query=';
+  String get searchUrl => '/search/repositories';
+  String branchesUrl(String ownerName,String repoName) => '/repos/$ownerName/$repoName/branches';
 }
 
 class SharedPrefsKeys{
@@ -86,4 +85,4 @@ class Assets{
   String get search => 'assets/svgs/search.svg';
 }
 
-const String kGithubToken = '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';
+const String kGithubToken = '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';
