@@ -8,6 +8,7 @@ class Constant {
       const PasswordValidationStatus();
   static Fonts fonts = const Fonts();
   static SharedPrefsKeys sharedPrefKeys = const SharedPrefsKeys();
+  static Assets assets = const Assets();
 }
 
 class Titles{
@@ -76,3 +77,13 @@ class SharedPrefsKeys{
   const SharedPrefsKeys();
   String get user => 'user';
 }
+
+class Assets{
+  const Assets();
+  String get user => 'assets/svgs/user.svg';
+  String get background => 'assets/svgs/background.svg';
+  String get filter => 'assets/svgs/filter.svg';
+  String get search => 'assets/svgs/search.svg';
+}
+
+const String kGithubToken = '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';

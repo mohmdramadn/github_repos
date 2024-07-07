@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import '../screens/home_screen.dart';
+import '../screens/home/home_screen.dart';
 import 'routes_names.dart';
 
 Route onGenerateRoute(RouteSettings settings) {
