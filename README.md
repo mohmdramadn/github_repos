@@ -1,16 +1,12 @@
-# github_repos
+# Github Repo App
 
-A new Flutter project.
+###### This app fetches github repos depending on the search parameter typed by the user and also filter between them depending on fixed filters provided by Github
 
-## Getting Started
+## Screens
+* Home screen
+* Repo details screen
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Packages
+* Dio for network calls
+* Getit for dependency injection
